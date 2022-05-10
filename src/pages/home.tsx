@@ -1,7 +1,6 @@
-import { Box, Flex, Icon, SimpleGrid, Text, theme } from "@chakra-ui/react";
-import { faSmileBeam, faSmileWink } from "@fortawesome/free-solid-svg-icons";
+import { Box, Flex, SimpleGrid, Text } from "@chakra-ui/react";
+import { faSmileBeam } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { RiEmotionHappyLine } from "react-icons/ri";
 import { Header } from "../components/Header";
 import { SideBar } from '../components/Sidebar/index';
 
@@ -16,7 +15,7 @@ export default function Home() {
 
                 <SimpleGrid flex='1' gap='4' minChildWidth='320px' alignItems='flex-start'>
                     <Box
-                        p='8'
+                        p={['6','8']}
                         bg='gray.800'
                         borderRadius={8}
                         
@@ -25,7 +24,7 @@ export default function Home() {
                         <FontAwesomeIcon icon={faSmileBeam} fontSize='100'/>
                     </Box>
                     <Box
-                        p='8'
+                        p={['6','8']}
                         bg='gray.800'
                         borderRadius={8}
                         

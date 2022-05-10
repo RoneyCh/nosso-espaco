@@ -1,7 +1,7 @@
 import { Box, Button, Checkbox, Flex, Heading, Icon, Table, Tbody, Td, Th, Thead, Tr, Text } from "@chakra-ui/react";
 import { RiAddLine } from "react-icons/ri";
 import { Header } from "../../components/Header";
-import { SideBar } from "../../components/SideBar";
+import { SideBar } from '../../components/Sidebar/index';
 
 export default function UserList() {
     return (
