@@ -3,7 +3,7 @@ import { faSmileBeam, faSmileWink } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { RiEmotionHappyLine } from "react-icons/ri";
 import { Header } from "../components/Header";
-import { SideBar } from "../components/SideBar";
+import { SideBar } from '../components/Sidebar/index';
 
 
 export default function Home() {

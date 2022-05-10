@@ -1,7 +1,18 @@
-import { Flex, Icon, Text, HStack, Box, Avatar } from "@chakra-ui/react";
-import { RiNotificationLine, RiUserAddLine } from "react-icons/ri";
+import { Flex, Icon, IconButton, useBreakpointValue } from "@chakra-ui/react";
+import { RiMenuLine } from "react-icons/ri";
+import { useSideBarDrawer } from "../context/SideBarDrawerContext";
+import { Logo } from "./Header/Logo";
+import { Notifications } from "./Header/Notifications";
+import { Profile } from "./Header/Profile";
 
 export function Header() {
+
+  const { onOpen } = useSideBarDrawer()
+
+  const isMobile = useBreakpointValue({
+    base: false,
+    lg: true
+  })
   return (
     <Flex
       as="header"
@@ -13,31 +24,22 @@ export function Header() {
       px="6"
       align="center"
     >
-      <Text fontSize="3xl" fontWeight="bold" letterSpacing="tight" w="64">
-        Nosso Espaço
-        <Text as="span" ml="1" color="pink.500">
-          .
-        </Text>
-      </Text>
+      {!isMobile && (
+        <IconButton 
+        aria-label="Open navigation"
+        icon={<Icon as={RiMenuLine} />} 
+        fontSize='24'
+        variant='unstyled' 
+        onClick={onOpen}
+        mr='2'
+        >
+        </IconButton>
+      )}
+      <Logo />
 
       <Flex align="center" ml="auto">
-        <HStack 
-            spacing='8'
-            mx='8'
-            pr='8'
-            py='1'
-            color='gray.300'
-            borderRightWidth={1}
-            borderColor='gray.700'
-        >
-          <Icon as={RiNotificationLine} fontSize="20" />
-        </HStack>
-        <Flex align='center'>
-            <Box mr='4' textAlign='right'>
-                <Text>Roney Christian</Text>
-            </Box>
-        </Flex>
-        <Avatar size='md' name='Roney Christian' src='https://github.com/RoneyCh.png' />
+        <Notifications />
+        <Profile showProfileData={isMobile}/>
       </Flex>
     </Flex>
   );
