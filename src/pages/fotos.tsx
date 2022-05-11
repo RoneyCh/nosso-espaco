@@ -9,7 +9,8 @@ import { v4 } from "uuid";
 export default function Fotos() {
   const [imageUpload, setImageUpload] = useState<File>(null);
   const [imageList, setImageList] = useState<string[]>([]);
-
+  const [imageDisplay, setImageDisplay] = useState<string[]>([]);
+  
   const imageListRef = ref(storage, "Fotos/");
   const uploadImage = () => {
     if (imageUpload === null) return;
@@ -24,10 +25,15 @@ export default function Fotos() {
   useEffect(() => {
     listAll(imageListRef).then((response) => {
       response.items.forEach((item) => {
-        getDownloadURL(item).then((url) => setImageList((prev) => [...prev, url]));
+        getDownloadURL(item).then((url) =>{
+          setImageList((prev) => [...prev, url])
+        }
+        );
       });
     });
   }, []);
+
+  const unique = imageList.filter((elem,index,self) => index === self.indexOf(elem));
 
   return (
     <Flex direction="column" h="100vh">
@@ -35,28 +41,26 @@ export default function Fotos() {
       <Flex w="100%" my="6" maxWidth={1480} mx="auto" px="6">
         <SideBar />
         <Flex direction='column'>
-            <Box>
-                <Input
-                type="file"
-                onChange={(e) => {
-                    setImageUpload(e.target.files[0]);
-                }}
-                />
-                <Button onClick={uploadImage}>Postar foto</Button>
-            </Box>
-                <Box>
-                {imageList.map((url) => (
-                    <SimpleGrid flex='1' gap='4' minChildWidth='320px' alignItems='flex-start'>
-                        <Box p={['6', '8']}
-                            bg='gray.800'
-                            borderRadius={8}>
-                        <Image src={url} w='sm'/>   
-                        </Box>    
-                    </SimpleGrid>
-                ))}</Box>
-         
-            </Flex>
-            </Flex>
+        <Box>
+          <Input
+            type="file"
+            onChange={(e) => {
+              setImageUpload(e.target.files[0]);
+            }}
+          />
+          <Button onClick={uploadImage} colorScheme={"pink"}>Postar foto</Button>
+        </Box>
+        <Flex wrap='wrap' justifyContent='center'>
+          {unique.map((url) => (
+              <Box  p={['6', '8']}
+              bg='gray.800'
+              borderRadius={8} m='6' >
+                <Image src={url} w="sm" />
+                </Box>
+          ))}
           </Flex>
+          </Flex>
+        </Flex>
+      </Flex>
   );
 }
