@@ -2,8 +2,38 @@ import { Flex, Box, Input, Button } from "@chakra-ui/react";
 import { Header } from "../components/Header";
 import { SideBar } from "../components/Sidebar";
 import ReactPlayer from "react-player";
+import { useEffect, useState } from "react";
+import { storage } from "../firebase";
+import { ref, uploadBytes, listAll, getDownloadURL } from "firebase/storage";
+import { v4 } from "uuid";
 
 export default function Videos() {
+  const [videoUpload, setVideoUpload] = useState<File>(null);
+  const [videoList, setVideoList] = useState<string[]>([]);
+
+  const videoListRef = ref(storage, "videos/");
+  const uploadVideo = () => {
+    if (videoUpload === null) return;
+    const videoRef = ref(storage, `videos/${videoUpload.name + v4()}`);
+    uploadBytes(videoRef, videoUpload).then((snapshot) =>
+      getDownloadURL(snapshot.ref).then((url) =>
+        setVideoList((prev) => [...prev, url])
+      )
+    );
+  };
+  useEffect(() => {
+    listAll(videoListRef).then((response) => {
+      response.items.forEach((item) => {
+        getDownloadURL(item).then((url) => {
+          setVideoList((prev) => [...prev, url]);
+        });
+      });
+    });
+  }, []);
+
+  const unique = videoList.filter(
+    (elem, index, self) => index === self.indexOf(elem)
+  );
   return (
     <Flex direction="column" h="100vh">
       <Header />
@@ -16,21 +46,30 @@ export default function Videos() {
             justifyContent="center"
             display="flex"
           >
-            <Input type="file" />
-            <Button ml="2" colorScheme={"pink"}>
+            <Input
+              type="file"
+              onChange={(e) => {
+                setVideoUpload(e.target.files[0]);
+              }}
+            />
+            <Button ml="2" colorScheme={"pink"} onClick={uploadVideo}>
               Postar vídeo
             </Button>
           </Box>
-          <Box
-            as="video"
-            id="myVedio"
-            src="https://firebasestorage.googleapis.com/v0/b/uploadingfile-c987f.appspot.com/o/videos%2FMagic%20Lesson%201%20-%2001.mp4?alt=media&token=18009714-ff9c-4b67-b08b-14e2081e277d"
-            width={["100%","75%"]}
-            mt='6'
-            maxWidth={1480}
-            height="100%"
-            controls={true}
-          />
+          <Flex wrap="wrap" justifyContent="center">
+            {unique.map((url) => (
+              <Box p={["2", "8"]} bg="gray.800" borderRadius={8} m="6" display='flex' justifyContent='center'>
+                <Box
+                  as="video"
+                  src={url}
+                  width={["100%", "75%"]}
+                  maxWidth={1480}
+                  height="100%"
+                  controls={true}
+                />
+              </Box>
+            ))}
+          </Flex>
         </Flex>
       </Flex>
     </Flex>
