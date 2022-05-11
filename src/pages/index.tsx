@@ -13,7 +13,7 @@ import { AuthContext } from "../context/AuthContext";
 
 type SignInFormData = {
   usuario: string;
-  senha: string
+  senha: string;
 
 }
 

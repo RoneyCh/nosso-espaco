@@ -7,7 +7,7 @@ type User = {
 
 type SignInCredentials = {
     usuario: string,
-    senha: string
+    senha: string,
 }
 
 type AuthContextData = {
@@ -35,7 +35,7 @@ export function AuthProvider({children}:AuthProviderPros) {
             setUser({usuario})
             Router.push('/home');
         } else {
-            console.log('errou');         
+            console.log('errou');
         }
     }
 

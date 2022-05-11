@@ -1,7 +1,7 @@
 import { Box, Flex, SimpleGrid, Text } from "@chakra-ui/react";
 import { faSmileBeam } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { Header } from "../components/Header";
 import { SideBar } from '../components/Sidebar/index';
 import { AuthContext } from "../context/AuthContext";
@@ -14,8 +14,7 @@ export default function Home() {
     return (
         
         <Flex direction='column' h='100vh'>
-            {!!user &&
-            <><Header /><Flex w='100%' my='6' maxWidth={1480} mx='auto' px='6'>
+            <Header /><Flex w='100%' my='6' maxWidth={1480} mx='auto' px='6'>
                     <SideBar />
 
                     <SimpleGrid flex='1' gap='4' minChildWidth='320px' alignItems='flex-start'>
@@ -38,8 +37,7 @@ export default function Home() {
 
                         </Box>
                     </SimpleGrid>
-                </Flex></>
-}
+                </Flex>
         </Flex>
     )
 }
