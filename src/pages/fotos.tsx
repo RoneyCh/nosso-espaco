@@ -9,7 +9,6 @@ import { v4 } from "uuid";
 export default function Fotos() {
   const [imageUpload, setImageUpload] = useState<File>(null);
   const [imageList, setImageList] = useState<string[]>([]);
-  const [imageDisplay, setImageDisplay] = useState<string[]>([]);
   
   const imageListRef = ref(storage, "Fotos/");
   const uploadImage = () => {
@@ -41,14 +40,14 @@ export default function Fotos() {
       <Flex w="100%" my="6" maxWidth={1480} mx="auto" px="6">
         <SideBar />
         <Flex direction='column'>
-        <Box>
+        <Box w='100%' alignItems='center' justifyContent='center' display='flex'>
           <Input
             type="file"
             onChange={(e) => {
               setImageUpload(e.target.files[0]);
             }}
           />
-          <Button onClick={uploadImage} colorScheme={"pink"}>Postar foto</Button>
+          <Button ml='2' onClick={uploadImage} colorScheme={"pink"}>Postar foto</Button>
         </Box>
         <Flex wrap='wrap' justifyContent='center'>
           {unique.map((url) => (
