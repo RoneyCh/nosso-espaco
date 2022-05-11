@@ -7,11 +7,13 @@ import { Input } from "../components/Form/Input";
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup'
 import { SubmitHandler, useForm } from 'react-hook-form'
+import { useContext } from "react";
+import { AuthContext } from "../context/AuthContext";
   
 
 type SignInFormData = {
-  text: string;
-  password: string
+  usuario: string;
+  senha: string
 
 }
 
@@ -21,15 +23,19 @@ const singInFormSchema = yup.object().shape({
 })
 
 export default function SignIn() {
+
   const { register, handleSubmit, formState} = useForm({
     resolver: yupResolver(singInFormSchema)
   });
+  
   const { errors } = formState;
+
+  const { signIn } = useContext(AuthContext)
+
   const handleSignIn: SubmitHandler<SignInFormData> = async (values, event) => {
     await new Promise(resolve => setTimeout(resolve, 2000));
 
-    console.log(values);
-
+    await signIn(values);
   }
 
   
@@ -47,7 +53,7 @@ export default function SignIn() {
         onSubmit={handleSubmit(handleSignIn)}
       >
         <Stack spacing={4}>
-          <Input name='usuario' type='text' label="Aniversário de namoro(sem '/')" error={errors.usuario} {...register('usuario')}></Input>
+          <Input name='usuario' type='text' label="Aniversário de namoro" error={errors.usuario} {...register('usuario')}></Input>
           <Input name='senha' type='password' label="O que eu mais gosto em você" error={errors.senha} {...register('senha')}></Input>
         </Stack>
         <Button type="submit" mt="6" colorScheme={"pink"} isLoading={formState.isSubmitting }>
