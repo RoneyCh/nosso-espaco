@@ -2,16 +2,18 @@ import { Box, Button, Flex, FormLabel, Input, SimpleGrid, Text } from "@chakra-u
 import { Header } from "../components/Header";
 import { SideBar } from "../components/Sidebar";
 import { db } from "../firebase";
-import { collection, addDoc, query, onSnapshot, doc, deleteDoc } from 'firebase/firestore'
+import { collection, addDoc, query, onSnapshot, doc, deleteDoc, serverTimestamp } from 'firebase/firestore'
 import { useEffect, useState } from "react";
 import Comment from "../components/Comments/Comment";
 
 type CommentData = {
+  createdAt: string;
   comment: string;
-  id: string
+  id: string;
+  createdAtVv: string;
 }
 
-export default function Humor() {
+export default function Home() {
   const [title, setTitle] = useState<string>("");
   const [comments, setComments] = useState<CommentData[]>([]);
   const [otherTitle, setOtherTitle] = useState<string>("");
@@ -49,7 +51,8 @@ export default function Humor() {
     e.preventDefault();
     if (title !== "") {
       await addDoc(collection(db, "comments"), {
-        title
+        title,
+        createdAt: serverTimestamp()
       });
       setTitle("");
     }
@@ -63,11 +66,14 @@ export default function Humor() {
     e.preventDefault();
     if (otherTitle !== "") {
       await addDoc(collection(db, "comments2"), {
-        otherTitle
+        otherTitle,
+        createdAtVv: serverTimestamp()
       });
       setOtherTitle("");
     }
   };
+
+  
   return (
     <Flex direction="column" h="100vh">
       <Header />
@@ -85,7 +91,7 @@ export default function Humor() {
             </Text>
             <Box>
               {comments.map(comment => (
-                <Comment key={comment.id} comment={comment} handleDelete={handleDelete}/>
+                <Comment key={comment.id} comment={comment} handleDelete={handleDelete} createdAt={comment.createdAt} />
               ))}
             </Box>
             <Box as="form" onSubmit={handleSubmit}>
@@ -103,7 +109,7 @@ export default function Humor() {
             </Text>
             <Box>
               {otherComments.map(comment => (
-                <Comment key={comment.id} comment={comment} handleDelete={handleDeleteVv}/>
+                <Comment key={comment.id} comment={comment} handleDelete={handleDeleteVv} createdAt={comment.createdAtVv}/>
               ))}
             </Box>
             <Box as="form" onSubmit={handleSubmitVv}>
