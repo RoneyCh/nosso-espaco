@@ -1,4 +1,3 @@
-import { color } from "@chakra-ui/react";
 import Link, { LinkProps } from "next/link";
 import { useRouter } from "next/router";
 import { cloneElement, ReactElement } from "react";

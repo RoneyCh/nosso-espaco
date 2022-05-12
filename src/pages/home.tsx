@@ -1,43 +1,122 @@
-import { Box, Flex, SimpleGrid, Text } from "@chakra-ui/react";
-import { faSmileBeam } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useContext, useEffect } from "react";
+import { Box, Button, Flex, FormLabel, Input, SimpleGrid, Text } from "@chakra-ui/react";
 import { Header } from "../components/Header";
-import { SideBar } from '../components/Sidebar/index';
-import { AuthContext } from "../context/AuthContext";
+import { SideBar } from "../components/Sidebar";
+import { db } from "../firebase";
+import { collection, addDoc, query, onSnapshot, doc, deleteDoc } from 'firebase/firestore'
+import { useEffect, useState } from "react";
+import Comment from "../components/Comments/Comment";
 
+type CommentData = {
+  comment: string;
+  id: string
+}
 
-export default function Home() {
+export default function Humor() {
+  const [title, setTitle] = useState<string>("");
+  const [comments, setComments] = useState<CommentData[]>([]);
+  const [otherTitle, setOtherTitle] = useState<string>("");
+  const [otherComments, setOtherComments] = useState<CommentData[]>([]);
 
-    const { user } = useContext(AuthContext)
+  useEffect(()=> {
+    const q = query(collection(db, 'comments'));
+    const unsub = onSnapshot(q, (QuerySnapshot) => {
+      let commentArray = [];
+      QuerySnapshot.forEach((doc) => {
+        commentArray.push({...doc.data(), id: doc.id});
+      })
+      setComments(commentArray);
+    });
+    return () => unsub();
+  }, [])
 
-    return (
-        
-        <Flex direction='column' h='100vh'>
-            <Header /><Flex w='100%' my='6' maxWidth={1480} mx='auto' px='6'>
-                    <SideBar />
+  useEffect(()=> {
+    const q = query(collection(db, 'comments2'));
+    const unsub = onSnapshot(q, (QuerySnapshot) => {
+      let commentArray = [];
+      QuerySnapshot.forEach((doc) => {
+        commentArray.push({...doc.data(), id: doc.id});
+      })
+      setOtherComments(commentArray);
+    });
+    return () => unsub();
+  }, [])
 
-                    <SimpleGrid flex='1' gap='4' minChildWidth='320px' alignItems='flex-start'>
-                        <Box
-                            p={['6', '8']}
-                            bg='gray.800'
-                            borderRadius={8}
+  const handleDelete = async (id: string) => {
+    await deleteDoc(doc(db, 'comments', id));
+  } 
+  
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (title !== "") {
+      await addDoc(collection(db, "comments"), {
+        title
+      });
+      setTitle("");
+    }
+  };
 
-                        >
-                            <Text fontSize='lg' mb='4'>Humor</Text>
-                            <FontAwesomeIcon icon={faSmileBeam} fontSize='100' />
-                        </Box>
-                        <Box
-                            p={['6', '8']}
-                            bg='gray.800'
-                            borderRadius={8}
+  const handleDeleteVv = async (id: string) => {
+    await deleteDoc(doc(db, 'comments2', id));
+  } 
 
-                        >
-                            <Text fontSize='lg' mb='4'>Comentário(s) do dia</Text>
-
-                        </Box>
-                    </SimpleGrid>
-                </Flex>
-        </Flex>
-    )
+  const handleSubmitVv= async (e) => {
+    e.preventDefault();
+    if (otherTitle !== "") {
+      await addDoc(collection(db, "comments2"), {
+        otherTitle
+      });
+      setOtherTitle("");
+    }
+  };
+  return (
+    <Flex direction="column" h="100vh">
+      <Header />
+      <Flex w="100%" my="6" maxWidth={1480} mx="auto" px="6">
+        <SideBar />
+        <SimpleGrid
+          flex="1"
+          gap="4"
+          minChildWidth="320px"
+          alignItems="flex-start"
+        >
+          <Box p={["6", "8"]} bg="gray.800" borderRadius={8}>
+            <Text fontSize="lg" mb="4">
+              Roney
+            </Text>
+            <Box>
+              {comments.map(comment => (
+                <Comment key={comment.id} comment={comment} handleDelete={handleDelete}/>
+              ))}
+            </Box>
+            <Box as="form" onSubmit={handleSubmit}>
+              <FormLabel>Coloca algo top pra eu ver depois</FormLabel>
+              <Input focusBorderColor="pink.500" type='text' value={title} onChange={(e) => setTitle(e.target.value)}/>
+            
+            <Box>
+              <Button colorScheme={"pink"} mt='4' type="submit">Comentar</Button>
+            </Box>
+            </Box>
+          </Box>
+          <Box p={["6", "8"]} bg="gray.800" borderRadius={8}>
+            <Text fontSize="lg" mb="4">
+              Vivian
+            </Text>
+            <Box>
+              {otherComments.map(comment => (
+                <Comment key={comment.id} comment={comment} handleDelete={handleDeleteVv}/>
+              ))}
+            </Box>
+            <Box as="form" onSubmit={handleSubmitVv}>
+              <FormLabel>Coloca algo top pra eu ver depois</FormLabel>
+              <Input focusBorderColor="pink.500" type='text' value={otherTitle} onChange={(e) => setOtherTitle(e.target.value)}/>
+            
+            <Box>
+              <Button colorScheme={"pink"} mt='4' type="submit">Comentar</Button>
+            </Box>
+            </Box>
+          </Box>
+        </SimpleGrid>
+      </Flex>
+    </Flex>
+  );
 }

@@ -58,7 +58,7 @@ export default function Videos() {
           </Box>
           <Flex wrap="wrap" justifyContent="center">
             {unique.map((url) => (
-              <Box p={["2", "8"]} bg="gray.800" borderRadius={8} m="6" display='flex' justifyContent='center'>
+              <Box key={v4()} p={["2", "8"]} bg="gray.800" borderRadius={8} m="6" display='flex' justifyContent='center'>
                 <Box
                   as="video"
                   src={url}

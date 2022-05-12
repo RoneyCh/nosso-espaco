@@ -10,7 +10,6 @@ export function SideBarNav() {
           <NavLink icon={RiHomeLine} href="/home">Home</NavLink>
           <NavLink icon={RiPhoneCameraLine} href="/fotos">Fotos</NavLink>
           <NavLink icon={RiVideoLine} href="/videos">Vídeos</NavLink>
-          <NavLink icon={RiEmotionNormalLine} href="/humor">Humor</NavLink>
         </NavSection>
       </Stack>
     )

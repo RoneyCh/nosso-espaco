@@ -6,6 +6,8 @@ import { storage } from "../firebase";
 import { ref, uploadBytes, listAll, getDownloadURL } from "firebase/storage";
 import { v4 } from "uuid";
 
+
+
 export default function Fotos() {
   const [imageUpload, setImageUpload] = useState<File>(null);
   const [imageList, setImageList] = useState<string[]>([]);
@@ -51,10 +53,10 @@ export default function Fotos() {
         </Box>
         <Flex wrap='wrap' justifyContent='center'>
           {unique.map((url) => (
-              <Box  p={['6', '8']}
+              <Box key={v4()} p={['6', '8']}
               bg='gray.800'
               borderRadius={8} m='6' >
-                <Image src={url} w="sm" />
+                <Image  src={url} w="sm" />
                 </Box>
           ))}
           </Flex>
