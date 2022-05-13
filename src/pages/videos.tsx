@@ -1,4 +1,4 @@
-import { Flex, Box, Input, Button } from "@chakra-ui/react";
+import { Flex, Box, Input, Button, Text } from "@chakra-ui/react";
 import { Header } from "../components/Header";
 import { SideBar } from "../components/Sidebar";
 import ReactPlayer from "react-player";
@@ -35,10 +35,11 @@ export default function Videos() {
   const unique = videoList.filter(
     (elem, index, self) => index === self.indexOf(elem)
   );
-  const { user } = useContext(AuthContext)
+  const { user, logOut } = useContext(AuthContext);
+
   return (
     <Flex direction="column" h="100vh">
-      {user && (
+      {user ? (
       <><Header /><Flex w="100%" my="6" maxWidth={1480} mx="auto" px="6">
           <SideBar />
           <Flex direction="column">
@@ -72,7 +73,10 @@ export default function Videos() {
             </Flex>
           </Flex>
         </Flex></>
-      )}
+      ): <Box h='100vh' justifyContent='center' alignItems='center' display='flex' flexDirection='column'>
+      <Text>Clique no botão abaixo e realize o login</Text>
+      <Button colorScheme={"pink"} onClick={logOut}>Sair</Button>
+    </Box>}
     </Flex>
   );
 }

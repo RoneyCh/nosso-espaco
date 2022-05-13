@@ -75,11 +75,12 @@ export default function Home() {
   };
 
   
-  const { user } = useContext(AuthContext)
+  const { user, logOut } = useContext(AuthContext)
+
 
   return (
     <Flex direction="column" h="100vh">
-      {user && (
+      {user ? (
       <><Header /><Flex w="100%" my="6" maxWidth={1480} mx="auto" px="6">
           <SideBar />
           <SimpleGrid
@@ -126,7 +127,10 @@ export default function Home() {
             </Box>
           </SimpleGrid>
         </Flex></>
-      )}
+      ) : <Box h='100vh' justifyContent='center' alignItems='center' display='flex' flexDirection='column'>
+          <Text>Clique no botão abaixo e realize o login</Text>
+          <Button colorScheme={"pink"} onClick={logOut}>Sair</Button>
+        </Box>}
     </Flex>
   );
 }

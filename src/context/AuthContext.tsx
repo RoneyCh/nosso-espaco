@@ -14,6 +14,7 @@ type AuthContextData = {
     signIn(credentials:SignInCredentials): Promise<void>;
     user: User;
     isAuthenticated: boolean;
+    logOut():Promise<void>
 }
 
 type AuthProviderPros = {
@@ -39,7 +40,11 @@ export function AuthProvider({children}:AuthProviderPros) {
         }
     }
 
+    async function logOut() {
+        if(!user) Router.push('/');
+     }
+
     return (
-        <AuthContext.Provider value={{signIn, isAuthenticated, user}}>{children}</AuthContext.Provider>
+        <AuthContext.Provider value={{signIn, isAuthenticated, user, logOut}}>{children}</AuthContext.Provider>
     )
 }

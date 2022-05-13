@@ -1,4 +1,4 @@
-import { Flex, Input, Button, Image, Box, SimpleGrid } from "@chakra-ui/react";
+import { Flex, Input, Button, Image, Box, Text } from "@chakra-ui/react";
 import { useState, useEffect, useContext } from "react";
 import { Header } from "../components/Header";
 import { SideBar } from "../components/Sidebar";
@@ -6,8 +6,6 @@ import { storage } from "../firebase";
 import { ref, uploadBytes, listAll, getDownloadURL } from "firebase/storage";
 import { v4 } from "uuid";
 import { AuthContext } from "../context/AuthContext";
-
-
 
 export default function Fotos() {
   const [imageUpload, setImageUpload] = useState<File>(null);
@@ -36,10 +34,10 @@ export default function Fotos() {
   }, []);
 
   const unique = imageList.filter((elem,index,self) => index === self.indexOf(elem));
-  const { user } = useContext(AuthContext)
+  const { user, logOut } = useContext(AuthContext)
   return (
     <Flex direction="column" h="100vh">
-      {user && (
+      {user ? (
       <><Header /><Flex w="100%" my="6" maxWidth={1480} mx="auto" px="6">
           <SideBar />
           <Flex direction='column'>
@@ -62,7 +60,10 @@ export default function Fotos() {
             </Flex>
           </Flex>
         </Flex></>
-        )}
+        ): <Box h='100vh' justifyContent='center' alignItems='center' display='flex' flexDirection='column'>
+        <Text>Clique no botão abaixo e realize o login</Text>
+        <Button colorScheme={"pink"} onClick={logOut}>Sair</Button>
+      </Box>}
       </Flex>
   );
 }
