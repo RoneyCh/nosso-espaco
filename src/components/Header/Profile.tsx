@@ -16,7 +16,7 @@ export function Profile({showProfileData = true}: ProfileProps) {
 
   const uploadImage = () => {
     if (imageUpload === null) return;
-    const imageRef = ref(storage, `profile/${imageUpload.name}`);
+    const imageRef = ref(storage, `profile/profilePicture`);
     uploadBytes(imageRef, imageUpload).then((snapshot) =>
       getDownloadURL(snapshot.ref).then((url) =>
         setImageUrl(url)
