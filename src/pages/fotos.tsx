@@ -1,10 +1,11 @@
 import { Flex, Input, Button, Image, Box, SimpleGrid } from "@chakra-ui/react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { Header } from "../components/Header";
 import { SideBar } from "../components/Sidebar";
 import { storage } from "../firebase";
 import { ref, uploadBytes, listAll, getDownloadURL } from "firebase/storage";
 import { v4 } from "uuid";
+import { AuthContext } from "../context/AuthContext";
 
 
 
@@ -35,33 +36,33 @@ export default function Fotos() {
   }, []);
 
   const unique = imageList.filter((elem,index,self) => index === self.indexOf(elem));
-
+  const { user } = useContext(AuthContext)
   return (
     <Flex direction="column" h="100vh">
-      <Header />
-      <Flex w="100%" my="6" maxWidth={1480} mx="auto" px="6">
-        <SideBar />
-        <Flex direction='column'>
-        <Box w='100%' alignItems='center' justifyContent='center' display='flex'>
-          <Input
-            type="file"
-            onChange={(e) => {
-              setImageUpload(e.target.files[0]);
-            }}
-          />
-          <Button ml='2' onClick={uploadImage} colorScheme={"pink"}>Postar foto</Button>
-        </Box>
-        <Flex wrap='wrap' justifyContent='center'>
-          {unique.map((url) => (
-              <Box key={v4()} p={['6', '8']}
-              bg='gray.800'
-              borderRadius={8} m='6' >
-                <Image  src={url} w="sm" />
+      {user && (
+      <><Header /><Flex w="100%" my="6" maxWidth={1480} mx="auto" px="6">
+          <SideBar />
+          <Flex direction='column'>
+            <Box w='100%' alignItems='center' justifyContent='center' display='flex'>
+              <Input
+                type="file"
+                onChange={(e) => {
+                  setImageUpload(e.target.files[0]);
+                } } />
+              <Button ml='2' onClick={uploadImage} colorScheme={"pink"}>Postar foto</Button>
+            </Box>
+            <Flex wrap='wrap' justifyContent='center'>
+              {unique.map((url) => (
+                <Box key={v4()} p={['6', '8']}
+                  bg='gray.800'
+                  borderRadius={8} m='6'>
+                  <Image src={url} w="sm" />
                 </Box>
-          ))}
+              ))}
+            </Flex>
           </Flex>
-          </Flex>
-        </Flex>
+        </Flex></>
+        )}
       </Flex>
   );
 }

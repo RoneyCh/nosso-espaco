@@ -3,8 +3,9 @@ import { Header } from "../components/Header";
 import { SideBar } from "../components/Sidebar";
 import { db } from "../firebase";
 import { collection, addDoc, query, onSnapshot, doc, deleteDoc, serverTimestamp } from 'firebase/firestore'
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Comment from "../components/Comments/Comment";
+import { AuthContext } from "../context/AuthContext";
 
 type CommentData = {
   createdAt: string;
@@ -74,55 +75,58 @@ export default function Home() {
   };
 
   
+  const { user } = useContext(AuthContext)
+
   return (
     <Flex direction="column" h="100vh">
-      <Header />
-      <Flex w="100%" my="6" maxWidth={1480} mx="auto" px="6">
-        <SideBar />
-        <SimpleGrid
-          flex="1"
-          gap="4"
-          minChildWidth="320px"
-          alignItems="flex-start"
-        >
-          <Box p={["6", "8"]} bg="gray.800" borderRadius={8}>
-            <Text fontSize="lg" mb="4">
-              Roney
-            </Text>
-            <Box>
-              {comments.map(comment => (
-                <Comment key={comment.id} comment={comment} handleDelete={handleDelete} createdAt={comment.createdAt} />
-              ))}
+      {user && (
+      <><Header /><Flex w="100%" my="6" maxWidth={1480} mx="auto" px="6">
+          <SideBar />
+          <SimpleGrid
+            flex="1"
+            gap="4"
+            minChildWidth="320px"
+            alignItems="flex-start"
+          >
+            <Box p={["6", "8"]} bg="gray.800" borderRadius={8}>
+              <Text fontSize="lg" mb="4">
+                Roney
+              </Text>
+              <Box>
+                {comments.map(comment => (
+                  <Comment key={comment.id} comment={comment} handleDelete={handleDelete} createdAt={comment.createdAt} />
+                ))}
+              </Box>
+              <Box as="form" onSubmit={handleSubmit}>
+                <FormLabel>Coloca algo top pra eu ver depois</FormLabel>
+                <Input focusBorderColor="pink.500" type='text' value={title} onChange={(e) => setTitle(e.target.value)} />
+
+                <Box>
+                  <Button colorScheme={"pink"} mt='4' type="submit">Comentar</Button>
+                </Box>
+              </Box>
             </Box>
-            <Box as="form" onSubmit={handleSubmit}>
-              <FormLabel>Coloca algo top pra eu ver depois</FormLabel>
-              <Input focusBorderColor="pink.500" type='text' value={title} onChange={(e) => setTitle(e.target.value)}/>
-            
-            <Box>
-              <Button colorScheme={"pink"} mt='4' type="submit">Comentar</Button>
+            <Box p={["6", "8"]} bg="gray.800" borderRadius={8}>
+              <Text fontSize="lg" mb="4">
+                Vivian
+              </Text>
+              <Box>
+                {otherComments.map(comment => (
+                  <Comment key={comment.id} comment={comment} handleDelete={handleDeleteVv} createdAt={comment.createdAtVv} />
+                ))}
+              </Box>
+              <Box as="form" onSubmit={handleSubmitVv}>
+                <FormLabel>Coloca algo top pra eu ver depois</FormLabel>
+                <Input focusBorderColor="pink.500" type='text' value={otherTitle} onChange={(e) => setOtherTitle(e.target.value)} />
+
+                <Box>
+                  <Button colorScheme={"pink"} mt='4' type="submit">Comentar</Button>
+                </Box>
+              </Box>
             </Box>
-            </Box>
-          </Box>
-          <Box p={["6", "8"]} bg="gray.800" borderRadius={8}>
-            <Text fontSize="lg" mb="4">
-              Vivian
-            </Text>
-            <Box>
-              {otherComments.map(comment => (
-                <Comment key={comment.id} comment={comment} handleDelete={handleDeleteVv} createdAt={comment.createdAtVv}/>
-              ))}
-            </Box>
-            <Box as="form" onSubmit={handleSubmitVv}>
-              <FormLabel>Coloca algo top pra eu ver depois</FormLabel>
-              <Input focusBorderColor="pink.500" type='text' value={otherTitle} onChange={(e) => setOtherTitle(e.target.value)}/>
-            
-            <Box>
-              <Button colorScheme={"pink"} mt='4' type="submit">Comentar</Button>
-            </Box>
-            </Box>
-          </Box>
-        </SimpleGrid>
-      </Flex>
+          </SimpleGrid>
+        </Flex></>
+      )}
     </Flex>
   );
 }
