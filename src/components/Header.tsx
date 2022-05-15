@@ -2,7 +2,7 @@ import { Flex, Icon, IconButton, useBreakpointValue } from "@chakra-ui/react";
 import { RiMenuLine } from "react-icons/ri";
 import { useSideBarDrawer } from "../context/SideBarDrawerContext";
 import { Logo } from "./Header/Logo";
-import { Notifications } from "./Header/Notifications";
+import { Heart } from "./Header/Heart";
 import { Profile } from "./Header/Profile";
 
 export function Header() {
@@ -38,7 +38,7 @@ export function Header() {
       <Logo />
 
       <Flex align="center" ml="auto">
-        <Notifications />
+        <Heart />
         <Profile showProfileData={isMobile}/>
       </Flex>
     </Flex>

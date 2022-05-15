@@ -60,6 +60,7 @@ export default function Fotos() {
   const verifyProgress = () => {
     if(progressBar === 100) {
       setProgressBar(0);
+      alert('Concluído');
     }
     return progressBar;
   }

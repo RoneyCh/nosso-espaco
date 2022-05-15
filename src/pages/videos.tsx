@@ -52,6 +52,7 @@ export default function Videos() {
   const verifyProgress = () => {
     if(progressBar === 100) {
       setProgressBar(0);
+      alert('Concluído')
     }
     return progressBar;
   }

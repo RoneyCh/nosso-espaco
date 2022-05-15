@@ -1,7 +1,7 @@
 import { HStack, Icon } from "@chakra-ui/react";
-import { RiNotificationLine } from "react-icons/ri";
+import { RiHeartsFill } from "react-icons/ri";
 
-export function Notifications() {
+export function Heart() {
   return (
     <HStack
       spacing={["6", "8"]}
@@ -12,7 +12,7 @@ export function Notifications() {
       borderRightWidth={1}
       borderColor="gray.700"
     >
-      <Icon as={RiNotificationLine} fontSize="20" />
+      <Icon as={RiHeartsFill} fontSize="20" />
     </HStack>
   );
 }
