@@ -14,6 +14,7 @@ import {
 import { v4 } from "uuid";
 import { AuthContext } from "../context/AuthContext";
 import { RiDeleteBinLine } from "react-icons/ri";
+import { Upload } from "../components/Upload/Upload";
 
 export default function Fotos() {
   const [imageUpload, setImageUpload] = useState<File>(null);
@@ -75,24 +76,7 @@ export default function Fotos() {
           <Flex w="100%" my="6" maxWidth={1480} mx="auto" px="6">
             <SideBar />
             <Flex direction="column">
-              <Box
-                w="100%"
-                alignItems="center"
-                justifyContent="center"
-                display="flex"
-              >
-                <Input
-                  type="file"
-                  onChange={(e) => {
-                    setImageUpload(e.target.files[0]);
-                  }}
-                />
-                <Button ml="2" onClick={uploadImage} colorScheme={"pink"}>
-                  Postar foto
-                </Button>
- 
-              </Box>
-              <Progress value={verifyProgress()} colorScheme='pink' size='md' mt='2' borderRadius='full'/>
+              <Upload upload={imageUpload} setUpload={setImageUpload} uploadFile={uploadImage} verifyProgress={verifyProgress} name='Postar foto'/>
               <Flex wrap="wrap" justifyContent="center">
                 {unique.map((url) => (
                   <Box
