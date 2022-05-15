@@ -1,4 +1,4 @@
-import { Flex, Box, Avatar, Text, Button, Input } from "@chakra-ui/react";
+import { Flex, Box, Avatar, Text, Button, Input, FormLabel } from "@chakra-ui/react";
 import { storage } from "../../firebase";
 import { ref, uploadBytes, getDownloadURL, listAll } from "firebase/storage";
 import { useEffect, useState } from "react";
@@ -50,18 +50,23 @@ export function Profile({ showProfileData = true }: ProfileProps) {
         src={imageUrl}
         onClick={() => setIsClicked(!isClicked)}
       />
+      <Box display={verifyClick()}>
+      <FormLabel htmlFor="changePic" cursor='pointer' ml='3'>
+        Alterar Foto
+      </FormLabel>
       <Input
+        display='none'
+        id='changePic'
         type="file"
-        display={verifyClick()}
         w={["20px", "150px"]}
-        ml="2"
         onChange={(e) => {
           setImageUpload(e.target.files[0]);
         }}
-      ></Input>
+      />
+      </Box>
       <Button
         _hover={{ bg: "pink.600" }}
-        p="3"
+        p="0"
         onClick={uploadImage}
         _active={{
           bg: "#b41fad",
@@ -74,7 +79,7 @@ export function Profile({ showProfileData = true }: ProfileProps) {
         fontSize="sm"
         color="gray.200"
       >
-        Alterar <Text>foto</Text>
+        OK
       </Button>
     </Flex>
   );
