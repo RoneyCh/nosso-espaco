@@ -1,4 +1,4 @@
-import { Flex, Input, Button, Image, Box, Text } from "@chakra-ui/react";
+import { Flex, Input, Button, Image, Box, Text, Progress } from "@chakra-ui/react";
 import { useState, useEffect, useContext } from "react";
 import { Header } from "../components/Header";
 import { SideBar } from "../components/Sidebar";
@@ -9,6 +9,7 @@ import {
   listAll,
   getDownloadURL,
   deleteObject,
+  uploadBytesResumable
 } from "firebase/storage";
 import { v4 } from "uuid";
 import { AuthContext } from "../context/AuthContext";
@@ -17,16 +18,22 @@ import { RiDeleteBinLine } from "react-icons/ri";
 export default function Fotos() {
   const [imageUpload, setImageUpload] = useState<File>(null);
   const [imageList, setImageList] = useState<string[]>([]);
+  const [progressBar, setProgressBar] = useState(0); 
 
   const imageListRef = ref(storage, "Fotos/");
   const uploadImage = () => {
     if (imageUpload === null) return;
     const imageRef = ref(storage, `Fotos/${imageUpload.name + v4()}`);
-    uploadBytes(imageRef, imageUpload).then((snapshot) =>
+    const uploadTask = uploadBytesResumable(imageRef, imageUpload);
+    uploadTask.on('state_changed',(snapshot) => {
+      const progress = Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
+      setProgressBar(progress);
+    });
+    uploadBytes(imageRef, imageUpload).then((snapshot) =>{
       getDownloadURL(snapshot.ref).then((url) =>
         setImageList((prev) => [...prev, url])
       )
-    );
+  });
   };
 
   useEffect(() => {
@@ -41,7 +48,6 @@ export default function Fotos() {
 
   const handleDelete = (url) => {
     let pictureRef = ref(storage, url);
-
     deleteObject(pictureRef)
       .then(() => {
         setImageList(imageList.filter((image) => image !== url));
@@ -49,6 +55,13 @@ export default function Fotos() {
       })
       .catch((e) => console.log(e));
   };
+
+  const verifyProgress = () => {
+    if(progressBar === 100) {
+      setProgressBar(0);
+    }
+    return progressBar;
+  }
 
   const unique = imageList.filter(
     (elem, index, self) => index === self.indexOf(elem)
@@ -77,7 +90,9 @@ export default function Fotos() {
                 <Button ml="2" onClick={uploadImage} colorScheme={"pink"}>
                   Postar foto
                 </Button>
+ 
               </Box>
+              <Progress value={verifyProgress()} colorScheme='pink' size='md' mt='2' borderRadius='full'/>
               <Flex wrap="wrap" justifyContent="center">
                 {unique.map((url) => (
                   <Box
