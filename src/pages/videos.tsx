@@ -1,7 +1,6 @@
 import { Flex, Box, Input, Button, Text } from "@chakra-ui/react";
 import { Header } from "../components/Header";
 import { SideBar } from "../components/Sidebar";
-import ReactPlayer from "react-player";
 import { useContext, useEffect, useState } from "react";
 import { storage } from "../firebase";
 import { ref, uploadBytes, listAll, getDownloadURL } from "firebase/storage";
