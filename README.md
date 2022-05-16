@@ -1,5 +1,5 @@
 # Nosso Espaço / Our Space
-The project is kind of a real simple social media and for now have some basic funcionalities as post a picture, add comments and post videos. The idea of the project came because i wanted to create something cool for me and my girlfriend and show her in our dating anniversary.
+The project is kind of a real simple social media and for now have some basic funcionalities as post a picture, add comments, post videos and login. The idea of the project came because i wanted to create something cool for me and my girlfriend and show her in our dating anniversary.
 
 ## Tech
 - NextJS
@@ -11,6 +11,7 @@ The project is kind of a real simple social media and for now have some basic fu
 - Moment
 
 ## Features
+- Login/Logout
 - Add/Delete a comment
 - Change profile picture
 - Post/Delete a picture
