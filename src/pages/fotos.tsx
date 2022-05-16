@@ -2,6 +2,7 @@ import { Flex, Input, Button, Image, Box, Text, Progress } from "@chakra-ui/reac
 import { useState, useEffect, useContext } from "react";
 import { Header } from "../components/Header";
 import { SideBar } from "../components/Sidebar";
+import { Modal } from '../components/Photos/Modal';
 import { storage } from "../firebase";
 import {
   ref,
@@ -15,6 +16,7 @@ import { v4 } from "uuid";
 import { AuthContext } from "../context/AuthContext";
 import { RiDeleteBinLine } from "react-icons/ri";
 import { Upload } from "../components/Upload/Upload";
+
 
 export default function Fotos() {
   const [imageUpload, setImageUpload] = useState<File>(null);
@@ -87,7 +89,8 @@ export default function Fotos() {
                     borderRadius={8}
                     m="6"
                   >
-                    <Image src={url} w="sm" />
+                     
+                    <Modal url={url} />
                     <Button
                       colorScheme={"pink"}
                       p="0"
@@ -116,6 +119,8 @@ export default function Fotos() {
           </Button>
         </Box>
       )}
+      
     </Flex>
+    
   );
 }
