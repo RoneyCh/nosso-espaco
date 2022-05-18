@@ -122,7 +122,7 @@ const Humor = () => {
                 </Text>
                 <Box fontSize="lg" mb="4">
                   {feeling.map((x) => (
-                    <Flex>
+                    <Flex key={x.id}>
                       <Text color="pink.600">{x.title}</Text>
                       <Button
                         colorScheme={"none"}
@@ -158,7 +158,7 @@ const Humor = () => {
                 </Text>
                 <Box fontSize="lg" mb="4">
                   {feelingVv.map((x) => (
-                    <Flex>
+                    <Flex key={x.id}>
                       <Text color="pink.600">{x.otherTitle}</Text>
                       <Button
                         colorScheme={"none"}
