@@ -79,20 +79,20 @@ export default function Fotos() {
           <Flex w="100%" my="6" maxWidth={1480} mx="auto" px="6">
             <SideBar />
             <Flex direction="column">
-              <Upload upload={imageUpload} setUpload={setImageUpload} uploadFile={uploadImage} verifyProgress={verifyProgress} name='Postar foto'/>
+              <Upload setUpload={setImageUpload} uploadFile={uploadImage} verifyProgress={verifyProgress} name='Postar foto'/>
               <Flex wrap="wrap" justifyContent="center">
                 {unique.map((url) => (
                   <Box
                     key={v4()}
                     p={["6", "8"]}
-                    bg="gray.800"
+                    bgGradient="linear(to-l, #000102, #071a2e)"
                     borderRadius={8}
                     m="6"
                   >
                      
                     <Modal url={url} />
                     <Button
-                      colorScheme={"pink"}
+                      colorScheme={"blue"}
                       p="0"
                       height="8"
                       onClick={() => handleDelete(url)}
@@ -114,7 +114,7 @@ export default function Fotos() {
           flexDirection="column"
         >
           <Text>Clique no botão abaixo e realize o login</Text>
-          <Button colorScheme={"pink"} onClick={logOut}>
+          <Button colorScheme={"blue"} onClick={logOut}>
             Sair
           </Button>
         </Box>

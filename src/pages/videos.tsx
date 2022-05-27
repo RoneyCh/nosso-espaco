@@ -69,10 +69,10 @@ export default function Videos() {
       <><Header /><Flex w="100%" my="6" maxWidth={1480} mx="auto" px="6">
           <SideBar />
           <Flex direction="column">
-          <Upload upload={videoUpload} setUpload={setVideoUpload} uploadFile={uploadVideo} verifyProgress={verifyProgress} name='Postar vídeo'/>
+          <Upload setUpload={setVideoUpload} uploadFile={uploadVideo} verifyProgress={verifyProgress} name='Postar vídeo'/>
             <Flex wrap="wrap" justifyContent="center">
               {unique.map((url) => (
-                <Box key={v4()} p={["2", "8"]} bg="gray.800" borderRadius={8} m="6" display='flex' justifyContent='center' alignItems='center'>
+                <Box key={v4()} p={["2", "8"]} bgGradient="linear(to-l, #000102, #071a2e)" borderRadius={8} m="6" display='flex' justifyContent='center' alignItems='center'>
                   <Box justifyContent='center' alignItems='center' display='flex' flexDirection='column'>
                   <Box
                     as="video"
@@ -82,7 +82,7 @@ export default function Videos() {
                     height="100%"
                     controls={true} />
                     <Button
-                      colorScheme={"pink"}
+                      colorScheme={"blue"}
                       p="0"
                       height="8"
                       onClick={() => handleDelete(url)}
@@ -98,7 +98,7 @@ export default function Videos() {
         </Flex></>
       ): <Box h='100vh' justifyContent='center' alignItems='center' display='flex' flexDirection='column'>
       <Text>Clique no botão abaixo e realize o login</Text>
-      <Button colorScheme={"pink"} onClick={logOut}>Sair</Button>
+      <Button colorScheme={"blue"} onClick={logOut}>Sair</Button>
     </Box>}
     </Flex>
   );

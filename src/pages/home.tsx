@@ -89,7 +89,7 @@ export default function Home() {
             minChildWidth="320px"
             alignItems="flex-start"
           >
-            <Box p={["6", "8"]} bg="gray.800" borderRadius={8}>
+            <Box p={["6", "8"]} bgGradient="linear(to-l, #000102, #071a2e)" borderRadius={8}>
               <Text fontSize="lg" mb="4">
                 Roney
               </Text>
@@ -100,14 +100,14 @@ export default function Home() {
               </Box>
               <Box as="form" onSubmit={handleSubmit}>
                 <FormLabel>Coloca algo top pra eu ver depois</FormLabel>
-                <Input focusBorderColor="pink.500" type='text' value={title} onChange={(e) => setTitle(e.target.value)} />
+                <Input focusBorderColor="blue.500" type='text' value={title} onChange={(e) => setTitle(e.target.value)} />
 
                 <Box>
-                  <Button colorScheme={"pink"} mt='4' type="submit">Comentar</Button>
+                  <Button colorScheme={"blue"} mt='4' type="submit">Comentar</Button>
                 </Box>
               </Box>
             </Box>
-            <Box p={["6", "8"]} bg="gray.800" borderRadius={8}>
+            <Box p={["6", "8"]} bgGradient="linear(to-l, #000102, #071a2e)" borderRadius={8}>
               <Text fontSize="lg" mb="4">
                 Vivian
               </Text>
@@ -118,10 +118,10 @@ export default function Home() {
               </Box>
               <Box as="form" onSubmit={handleSubmitVv}>
                 <FormLabel>Coloca algo top pra eu ver depois</FormLabel>
-                <Input focusBorderColor="pink.500" type='text' value={otherTitle} onChange={(e) => setOtherTitle(e.target.value)} />
+                <Input focusBorderColor="blue.500" type='text' value={otherTitle} onChange={(e) => setOtherTitle(e.target.value)} />
 
                 <Box>
-                  <Button colorScheme={"pink"} mt='4' type="submit">Comentar</Button>
+                  <Button colorScheme={"blue"} mt='4' type="submit">Comentar</Button>
                 </Box>
               </Box>
             </Box>
@@ -129,7 +129,7 @@ export default function Home() {
         </Flex></>
       ) : <Box h='100vh' justifyContent='center' alignItems='center' display='flex' flexDirection='column'>
           <Text>Clique no botão abaixo e realize o login</Text>
-          <Button colorScheme={"pink"} onClick={logOut}>Sair</Button>
+          <Button colorScheme={"blue"} onClick={logOut}>Sair</Button>
         </Box>}
     </Flex>
   );

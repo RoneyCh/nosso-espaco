@@ -111,7 +111,7 @@ const Humor = () => {
           >
             <Box
               p={["6", "8"]}
-              bg="gray.800"
+              bgGradient="linear(to-l, #000102, #071a2e)"
               borderRadius={8}
               display="flex"
               flexDirection="column"
@@ -123,7 +123,7 @@ const Humor = () => {
                 <Box fontSize="lg" mb="4">
                   {feeling.map((x) => (
                     <Flex key={x.id}>
-                      <Text color="pink.600">{x.title}</Text>
+                      <Text color="blue.600">{x.title}</Text>
                       <Button
                         colorScheme={"none"}
                         p="0"
@@ -141,7 +141,7 @@ const Humor = () => {
               </Flex>
               <Options handleSubmit={handleSubmit} setTitle={setTitle}/>
             </Box>
-            <Box p={["6", "8"]} bg="gray.800" borderRadius={8}>
+            <Box p={["6", "8"]} bgGradient="linear(to-l, #000102, #071a2e)" borderRadius={8}>
               <Flex>
                 <Text fontSize="lg" mb="4" mr="3">
                   Vivian
@@ -149,7 +149,7 @@ const Humor = () => {
                 <Box fontSize="lg" mb="4">
                   {feelingVv.map((x) => (
                     <Flex key={x.id}>
-                      <Text color="pink.600">{x.otherTitle}</Text>
+                      <Text color="blue.600">{x.otherTitle}</Text>
                       <Button
                         colorScheme={"none"}
                         p="0"
@@ -171,7 +171,7 @@ const Humor = () => {
         </Flex></>
       ) : <Box h='100vh' justifyContent='center' alignItems='center' display='flex' flexDirection='column'>
       <Text>Clique no botão abaixo e realize o login</Text>
-      <Button colorScheme={"pink"} onClick={logOut}>Sair</Button>
+      <Button colorScheme={"blue"} onClick={logOut}>Sair</Button>
     </Box>}
     </Flex>
   );

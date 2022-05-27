@@ -1,6 +1,6 @@
 import { Box, Input, Button, Progress } from "@chakra-ui/react";
 
-export const Upload = ({upload, setUpload, uploadFile, verifyProgress, name}) => {
+export const Upload = ({setUpload, uploadFile, verifyProgress, name}) => {
     return (
         <><Box
             w="100%"
@@ -13,10 +13,10 @@ export const Upload = ({upload, setUpload, uploadFile, verifyProgress, name}) =>
                 onChange={(e) => {
                     setUpload(e.target.files[0]);
                 } } />
-            <Button ml="2" onClick={uploadFile} colorScheme={"pink"}>
+            <Button ml="2" onClick={uploadFile} colorScheme={"blue"}>
                 {name}
             </Button>
 
-        </Box><Progress value={verifyProgress()} colorScheme='pink' size='md' mt='2' borderRadius='full' /></>
+        </Box><Progress value={verifyProgress()} colorScheme='blue' size='md' mt='2' borderRadius='full' /></>
     )
 }
