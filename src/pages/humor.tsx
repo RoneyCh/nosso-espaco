@@ -7,10 +7,10 @@ import {
   Stack,
   Button,
 } from "@chakra-ui/react";
-import { useContext, useEffect, useState } from "react";
+import { FormEvent, useContext, useEffect, useState } from "react";
 import { Header } from "../components/Header";
 import { SideBar } from "../components/Sidebar";
-
+import { Options } from "../components/Humor/Options";
 import { db } from "../firebase";
 import {
   collection,
@@ -68,7 +68,7 @@ const Humor = () => {
     return () => unsub();
   });
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e:FormEvent) => {
     e.preventDefault();
     if (title !== "") {
       await addDoc(collection(db, "feelings"), {
@@ -139,17 +139,7 @@ const Humor = () => {
                   ))}
                 </Box>
               </Flex>
-              <Stack as="form" onSubmit={handleSubmit}>
-                <Select color='pink.600' onChange={(e) => setTitle(e.target.value)}>
-                  <option value="Cansado">Cansado</option>
-                  <option value="Feliz">Feliz</option>
-                  <option value="De boas">De boas</option>
-                  <option value="Estressado">Estressado</option>
-                  <option value="Apenas reclamações">Apenas reclamações</option>
-                  <option value="Doente">Doente</option>
-                </Select>
-                <Button colorScheme={"pink"} type="submit">Enviar</Button>
-              </Stack>
+              <Options handleSubmit={handleSubmit} setTitle={setTitle}/>
             </Box>
             <Box p={["6", "8"]} bg="gray.800" borderRadius={8}>
               <Flex>
@@ -175,20 +165,7 @@ const Humor = () => {
                   ))}
                 </Box>
               </Flex>
-              <Stack as="form" onSubmit={handleSubmitVv}>
-                <Select color='pink.600' onChange={(e) => setOtherTitle(e.target.value)}>
-                  <option value="Cansada">Cansada</option>
-                  <option value="Feliz">Feliz</option>
-                  <option value="De boas">De boas</option>
-                  <option value="Estressada">Estressada</option>
-                  <option value="Apenas reclamações">Apenas reclamações</option>
-                  <option value="Queria sushi">Queria sushi</option>
-                  <option value="Ansiosa">Ansiosa</option>
-                  <option value="Procrastinando">Procrastinando</option>
-                  <option value="Doente">Doente</option>
-                </Select>
-                <Button colorScheme={"pink"} type="submit">Enviar</Button>
-              </Stack>
+              <Options handleSubmit={handleSubmitVv} setTitle={setOtherTitle}/>
             </Box>
           </SimpleGrid>
         </Flex></>
