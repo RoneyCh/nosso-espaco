@@ -13,10 +13,10 @@ export const Upload = ({setUpload, uploadFile, verifyProgress, name}) => {
                 onChange={(e) => {
                     setUpload(e.target.files[0]);
                 } } />
-            <Button ml="2" onClick={uploadFile} colorScheme={"blue"}>
+            <Button ml="2" onClick={uploadFile} colorScheme={"purple"}>
                 {name}
             </Button>
 
-        </Box><Progress value={verifyProgress()} colorScheme='blue' size='md' mt='2' borderRadius='full' /></>
+        </Box><Progress value={verifyProgress()} colorScheme='purple' size='md' mt='2' borderRadius='full' /></>
     )
 }

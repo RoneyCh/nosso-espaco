@@ -4,7 +4,7 @@ export const theme = extendTheme({
 
     colors: {
         gray:{
-             "900": "#181B23",
+             "900": "#0f0f0f",
              "800":"#1F2029",
              "700":"#353646",
              "600":"#4B4D63",
@@ -25,7 +25,7 @@ export const theme = extendTheme({
     styles: {
         global: {
             body: {
-                bgGradient:"linear(to-l, #0f1320, #06182b)",
+                bgGradient:"linear(to-l, #000000, #1b1a1b)",
                 color: 'gray.50'
             }
         }

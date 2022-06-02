@@ -65,13 +65,13 @@ export function Profile({ showProfileData = true }: ProfileProps) {
       />
       </Box>
       <Button
-        _hover={{ bg: "blue.600" }}
+        _hover={{ bg: "purple.600" }}
         p="0"
         onClick={uploadImage}
         _active={{
-          bg: "#109cd3",
+          bg: "#4b25f1",
           transform: "scale(0.98)",
-          borderColor: "#109cd3",
+          borderColor: "#450868",
         }}
         display={verifyClick()}
         flexDirection="column"

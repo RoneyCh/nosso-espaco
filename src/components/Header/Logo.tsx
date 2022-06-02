@@ -5,7 +5,7 @@ export function Logo() {
     return (
         <Text fontSize={['20px', '3xl']} fontWeight="bold" letterSpacing="tight" w="64">
         Nosso Espaço
-        <Icon as={RiHeart2Line} ml="1" color="blue.400"/>
+        <Icon as={RiHeart2Line} ml="1" color="purple.400"/>
       </Text>
     )
 }

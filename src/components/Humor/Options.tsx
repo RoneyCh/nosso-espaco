@@ -10,7 +10,7 @@ type OptionsData = {
 export function Options({handleSubmit,setTitle}:OptionsData) {
   return (
     <Stack as="form" onSubmit={handleSubmit}>
-                <Select color='blue.600' onChange={(e) => setTitle(e.target.value)}>
+                <Select color='purple.600' onChange={(e) => setTitle(e.target.value)}>
                 <option value="Cansadx">Cansadx</option>
                   <option value="Feliz">Feliz</option>
                   <option value="Triste">Triste</option>
@@ -24,7 +24,7 @@ export function Options({handleSubmit,setTitle}:OptionsData) {
                   <option value="Procrastinando">Procrastinando</option>
                   <option value="Doente">Doente</option>
                 </Select>
-                <Button colorScheme={"blue"} type="submit">Enviar</Button>
+                <Button colorScheme={"purple"} type="submit">Enviar</Button>
               </Stack>
   )
 }

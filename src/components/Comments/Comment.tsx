@@ -40,7 +40,7 @@ export default function Comment({ comment, handleDelete, createdAt }) {
         <Box>
           <Text>{moment(date).fromNow()}</Text>
           <Button
-            colorScheme={"blue"}
+            colorScheme={"purple"}
             p="0"
             height="8"
             onClick={() => handleDelete(comment.id)}

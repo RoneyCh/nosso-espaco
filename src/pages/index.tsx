@@ -46,7 +46,7 @@ export default function SignIn() {
         as="form"
         width="100%"
         maxWidth="360px"
-        bgGradient="linear(to-l, #000102, #071a2e)"
+        bg="gray.900" 
         p="8"
         borderRadius={8}
         flexDir="column"
@@ -56,7 +56,7 @@ export default function SignIn() {
           <Input name='usuario' type='text' label="Aniversário de namoro" error={errors.usuario} {...register('usuario')}></Input>
           <Input name='senha' type='password' label="O que eu mais gosto em você" error={errors.senha} {...register('senha')}></Input>
         </Stack>
-        <Button type="submit" mt="6" colorScheme={"blue"} isLoading={formState.isSubmitting }>
+        <Button type="submit" mt="6" colorScheme={"purple"} isLoading={formState.isSubmitting }>
           Entrar
         </Button>
       </Flex>

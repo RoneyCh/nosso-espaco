@@ -85,14 +85,14 @@ export default function Fotos() {
                   <Box
                     key={v4()}
                     p={["6", "8"]}
-                    bgGradient="linear(to-l, #000102, #071a2e)"
+                    bg="#0f0f0f"
                     borderRadius={8}
                     m="6"
                   >
                      
                     <Modal url={url} />
                     <Button
-                      colorScheme={"blue"}
+                      colorScheme={"purple"}
                       p="0"
                       height="8"
                       onClick={() => handleDelete(url)}
@@ -114,7 +114,7 @@ export default function Fotos() {
           flexDirection="column"
         >
           <Text>Clique no botão abaixo e realize o login</Text>
-          <Button colorScheme={"blue"} onClick={logOut}>
+          <Button colorScheme={"purple"} onClick={logOut}>
             Sair
           </Button>
         </Box>
