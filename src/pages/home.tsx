@@ -6,6 +6,8 @@ import { collection, addDoc, query, onSnapshot, doc, deleteDoc, serverTimestamp 
 import { useContext, useEffect, useState } from "react";
 import Comment from "../components/Comments/Comment";
 import { AuthContext } from "../context/AuthContext";
+import TimeOut from "../components/timeOut";
+
 
 type CommentData = {
   createdAt: string;
@@ -19,6 +21,7 @@ export default function Home() {
   const [comments, setComments] = useState<CommentData[]>([]);
   const [otherTitle, setOtherTitle] = useState<string>("");
   const [otherComments, setOtherComments] = useState<CommentData[]>([]);
+
 
   useEffect(()=> {
     const q = query(collection(db, 'comments'));
@@ -73,15 +76,12 @@ export default function Home() {
       setOtherTitle("");
     }
   };
-
-  
-  const { user, logOut } = useContext(AuthContext)
-
-
+  const { user } = useContext(AuthContext)
   return (
     <Flex direction="column" h="100vh">
       {user ? (
-      <><Header /><Flex w="100%" my="6" maxWidth={1480} mx="auto" px="6">
+      <>
+      <Header /><Flex w="100%" my="6" maxWidth={1480} mx="auto" px="6">
           <SideBar />
           <SimpleGrid
             flex="1"
@@ -127,10 +127,11 @@ export default function Home() {
             </Box>
           </SimpleGrid>
         </Flex></>
-      ) : <Box h='100vh' justifyContent='center' alignItems='center' display='flex' flexDirection='column'>
-          <Text>Clique no botão abaixo e realize o login</Text>
-          <Button colorScheme={"purple"} onClick={logOut}>Sair</Button>
-        </Box>}
-    </Flex>
+):
+(
+<TimeOut />
+)
+}
+</Flex>
   );
 }

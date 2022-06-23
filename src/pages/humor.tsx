@@ -22,6 +22,7 @@ import {
 } from "firebase/firestore";
 import { RiDeleteBinLine } from "react-icons/ri";
 import { AuthContext } from "../context/AuthContext";
+import TimeOut from "../components/timeOut";
 
 type FeelingData = {
   id: string;
@@ -96,7 +97,7 @@ const Humor = () => {
     await deleteDoc(doc(db, "feelingsVv", id));
   };
 
-  const { user, logOut } = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
 
   return (
     <Flex direction="column" h="100vh">
@@ -169,10 +170,9 @@ const Humor = () => {
             </Box>
           </SimpleGrid>
         </Flex></>
-      ) : <Box h='100vh' justifyContent='center' alignItems='center' display='flex' flexDirection='column'>
-      <Text>Clique no botão abaixo e realize o login</Text>
-      <Button colorScheme={"purple"} onClick={logOut}>Sair</Button>
-    </Box>}
+      ) : (
+        <TimeOut />
+      )}
     </Flex>
   );
 };

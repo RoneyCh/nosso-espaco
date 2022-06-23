@@ -8,6 +8,7 @@ import { ref, uploadBytes, listAll, getDownloadURL, uploadBytesResumable, delete
 import { v4 } from "uuid";
 import { AuthContext } from "../context/AuthContext";
 import { RiDeleteBinLine } from "react-icons/ri";
+import TimeOut from "../components/timeOut";
 
 export default function Videos() {
   const [videoUpload, setVideoUpload] = useState<File>(null);
@@ -61,7 +62,7 @@ export default function Videos() {
     (elem, index, self) => index === self.indexOf(elem)
   );
 
-  const { user, logOut } = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
 
   return (
     <Flex direction="column" h="100vh">
@@ -96,10 +97,9 @@ export default function Videos() {
             </Flex>
           </Flex>
         </Flex></>
-      ): <Box h='100vh' justifyContent='center' alignItems='center' display='flex' flexDirection='column'>
-      <Text>Clique no botão abaixo e realize o login</Text>
-      <Button colorScheme={"purple"} onClick={logOut}>Sair</Button>
-    </Box>}
+      ) : (
+        <TimeOut />
+      )}
     </Flex>
   );
 }

@@ -38,8 +38,6 @@ export default function SignIn() {
     await signIn(values);
   }
 
-  
-
   return (
     <Flex w="100vw" h="100vh" align="center" justify="center">
       <Flex

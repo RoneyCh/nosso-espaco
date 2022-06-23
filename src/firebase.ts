@@ -1,9 +1,10 @@
 import { initializeApp } from "firebase/app";
 import { getStorage } from 'firebase/storage';
 import { getFirestore } from 'firebase/firestore'
+import { getAuth } from 'firebase/auth'
 
 const firebaseConfig = {
-  apiKey: "AIzaSyBoWiJ75kH1alQ-U2fI97Vt2kqAsLIA-Gk",
+  apiKey: process.env.NEXT_PUBLIC_API_KEY,
   authDomain: "uploadingfile-c987f.firebaseapp.com",
   projectId: "uploadingfile-c987f",
   storageBucket: "uploadingfile-c987f.appspot.com",
@@ -15,3 +16,4 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 export const storage = getStorage(app);
 export const db = getFirestore(app);
+export const auth = getAuth(app);

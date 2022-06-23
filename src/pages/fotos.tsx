@@ -16,6 +16,7 @@ import { v4 } from "uuid";
 import { AuthContext } from "../context/AuthContext";
 import { RiDeleteBinLine } from "react-icons/ri";
 import { Upload } from "../components/Upload/Upload";
+import TimeOut from "../components/timeOut";
 
 
 export default function Fotos() {
@@ -70,7 +71,7 @@ export default function Fotos() {
   const unique = imageList.filter(
     (elem, index, self) => index === self.indexOf(elem)
   );
-  const { user, logOut } = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
   return (
     <Flex direction="column" h="100vh">
       {user ? (
@@ -104,22 +105,10 @@ export default function Fotos() {
               </Flex>
             </Flex>
           </Flex>
-        </>
-      ) : (
-        <Box
-          h="100vh"
-          justifyContent="center"
-          alignItems="center"
-          display="flex"
-          flexDirection="column"
-        >
-          <Text>Clique no botão abaixo e realize o login</Text>
-          <Button colorScheme={"purple"} onClick={logOut}>
-            Sair
-          </Button>
-        </Box>
-      )}
-      
+        </>  
+      ):
+      <TimeOut />
+      }
     </Flex>
     
   );
