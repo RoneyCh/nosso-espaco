@@ -37,18 +37,7 @@ export function AuthProvider({children}:AuthProviderPros) {
 
     })
 }, [])
-    const usuario1 = {
-        usuario: process.env.NEXT_PUBLIC_USUARIO,
-        senha: process.env.NEXT_PUBLIC_SENHA
-    }
-
     async function signIn({usuario, senha}:SignInCredentials) {
-       /*if(usuario1.usuario === usuario && usuario1.senha === senha) {
-            setUser({usuario})
-            Router.push('/home');
-        } else {
-            console.log('errou');
-        }*/
         try {
             const loginData = await signInWithEmailAndPassword(auth, usuario, senha);
             console.log(loginData); 
@@ -60,7 +49,6 @@ export function AuthProvider({children}:AuthProviderPros) {
     }
 
     async function logOut() {
-        /*if(!user) Router.push('/');*/
         await signOut(auth);
         Router.push('/');
      }
