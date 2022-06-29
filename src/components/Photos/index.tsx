@@ -8,12 +8,17 @@ import { Modal as ChakraModel,
     Button,
     useDisclosure, Image} from "@chakra-ui/react";
 
-export const Modal = ({url}) => {
+
+interface ModalProps {
+  url: string;
+}
+
+const Modal = ({url}:ModalProps) => {
     const { isOpen, onOpen, onClose } = useDisclosure();
     
     return (
         <>
-      <Image src={url} alt='' w='sm' onClick={onOpen}></Image>
+      <Image src={url} alt='nos' w='sm' onClick={onOpen}></Image>
 
       <ChakraModel isOpen={isOpen} onClose={onClose}>
         <ModalOverlay bg='none'
@@ -21,10 +26,12 @@ export const Modal = ({url}) => {
         <ModalContent>
           <ModalCloseButton />
           <ModalBody bg='gray.900'>
-            <Image alt='' src={url} w="sm" />
+            <Image alt='nos' src={url} w="sm" />
           </ModalBody>
         </ModalContent>
       </ChakraModel>
     </>
     )
 }
+
+export default Modal;

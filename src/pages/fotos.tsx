@@ -2,7 +2,7 @@ import { Flex, Input, Button, Image, Box, Text, Progress } from "@chakra-ui/reac
 import { useState, useEffect, useContext } from "react";
 import { Header } from "../components/Header";
 import { SideBar } from "../components/Sidebar";
-import { Modal } from '../components/Photos/Modal';
+import  Modal  from '../components/Photos';
 import { storage } from "../firebase";
 import {
   ref,
