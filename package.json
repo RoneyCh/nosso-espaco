@@ -32,7 +32,6 @@
     "react-icons": "^4.3.1",
     "react-player": "^2.10.1",
     "ts-jest": "^28.0.5",
-    "ts-mock-firebase-updated": "^3.0.0",
     "uuid": "^8.3.2",
     "yup": "^0.32.11"
   },
