@@ -19,7 +19,7 @@ export function SideBarNav() {
           <NavLink icon={RiEmotionNormalLine} href="/humor">Humor</NavLink>
         </NavSection>
         <Box>
-          <Box onClick={logOut}>Sair</Box>
+          <Box onClick={logOut} cursor='pointer'>Sair</Box>
         </Box>
       </Stack>
     
