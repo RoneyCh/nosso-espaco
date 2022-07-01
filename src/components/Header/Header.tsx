@@ -1,9 +1,9 @@
 import { Flex, Icon, IconButton, useBreakpointValue } from "@chakra-ui/react";
 import { RiMenuLine } from "react-icons/ri";
-import { useSideBarDrawer } from "../context/SideBarDrawerContext";
-import { Logo } from "./Header/Logo";
-import { Heart } from "./Header/Heart";
-import { Profile } from "./Header/Profile";
+import { useSideBarDrawer } from "../../context/SideBarDrawerContext";
+import { Logo } from "./Logo";
+import { Heart } from "./Heart";
+import { Profile } from "./Profile";
 
 export function Header() {
 

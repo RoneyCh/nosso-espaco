@@ -8,7 +8,7 @@ import {
   Button,
 } from "@chakra-ui/react";
 import { FormEvent, useContext, useEffect, useState } from "react";
-import { Header } from "../components/Header";
+import { Header } from "../components/Header/Header";
 import { SideBar } from "../components/Sidebar";
 import { Options } from "../components/Humor/Options";
 import { db } from "../firebase";

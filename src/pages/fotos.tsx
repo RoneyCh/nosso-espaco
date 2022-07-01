@@ -1,6 +1,6 @@
 import { Flex, Input, Button, Image, Box, Text, Progress } from "@chakra-ui/react";
 import { useState, useEffect, useContext } from "react";
-import { Header } from "../components/Header";
+import { Header } from "../components/Header/Header";
 import { SideBar } from "../components/Sidebar";
 import  Modal  from '../components/Photos';
 import { storage } from "../firebase";

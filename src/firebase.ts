@@ -4,12 +4,12 @@ import { getFirestore } from 'firebase/firestore'
 import { getAuth } from 'firebase/auth'
 
 const firebaseConfig = {
-  apiKey: process.env.NEXT_PUBLIC_API_KEY,
-  authDomain: "uploadingfile-c987f.firebaseapp.com",
-  projectId: "uploadingfile-c987f",
-  storageBucket: "uploadingfile-c987f.appspot.com",
-  messagingSenderId: "104746154946",
-  appId: "1:104746154946:web:5cafb19bd92bf256bcf45b"
+  apiKey: process.env.NEXT_PUBLIC_API_KEY || "/",
+  authDomain: process.env.NEXT_PUBLIC_AUTH_DOMAIN || "",
+  projectId: process.env.NEXT_PUBLIC_PROJECT_ID || "",
+  storageBucket: process.env.NEXT_PUBLIC_STORAGE_BUCKET || "",
+  messagingSenderId: process.env.NEXT_PUBLIC_MESSAGING_SENDER_ID || "",
+  appId: process.env.NEXT_PUBLIC_APP_ID || "",
 };
 
 // Initialize Firebase

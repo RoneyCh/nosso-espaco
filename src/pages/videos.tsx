@@ -1,5 +1,5 @@
 import { Flex, Box, Input, Button, Text, Progress } from "@chakra-ui/react";
-import { Header } from "../components/Header";
+import { Header } from "../components/Header/Header";
 import { SideBar } from "../components/Sidebar";
 import { Upload } from "../components/Upload/Upload"; 
 import { useContext, useEffect, useState } from "react";

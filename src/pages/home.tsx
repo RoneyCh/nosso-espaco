@@ -1,5 +1,5 @@
 import { Box, Button, Flex, FormLabel, Input, SimpleGrid, Text } from "@chakra-ui/react";
-import { Header } from "../components/Header";
+import { Header } from "../components/Header/Header";
 import { SideBar } from "../components/Sidebar";
 import { db } from "../firebase";
 import { collection, addDoc, query, onSnapshot, doc, deleteDoc, serverTimestamp } from 'firebase/firestore'
