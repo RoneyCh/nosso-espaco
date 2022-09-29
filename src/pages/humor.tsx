@@ -6,6 +6,10 @@ import {
   Select,
   Stack,
   Button,
+  Slider,
+  SliderFilledTrack,
+  SliderThumb,
+  SliderTrack,
 } from "@chakra-ui/react";
 import { FormEvent, useContext, useEffect, useState } from "react";
 import { Header } from "../components/Header/Header";
@@ -20,26 +24,36 @@ import {
   doc,
   deleteDoc,
 } from "firebase/firestore";
-import { RiDeleteBinLine } from "react-icons/ri";
+import {
+  RiDeleteBinLine,
+  RiEmotionHappyLine,
+  RiEmotionSadLine,
+  RiMessage3Line,
+  RiSendBackward,
+  RiSendPlaneLine,
+} from "react-icons/ri";
 import { AuthContext } from "../context/AuthContext";
 import TimeOut from "../components/timeOut";
 
 type FeelingData = {
   id: string;
   title: string;
+  range: number;
 };
 
 type FeelingDataVv = {
   id: string;
   otherTitle: string;
+  otherRange: number;
 };
-
 
 const Humor = () => {
   const [title, setTitle] = useState<string>("");
   const [feeling, setFeeling] = useState<FeelingData[]>([]);
   const [otherTitle, setOtherTitle] = useState<string>("");
   const [feelingVv, setFeelingVv] = useState<FeelingDataVv[]>([]);
+  const [range, setRange] = useState<number>();
+  const [otherRange, setOtherRange] = useState<number>();
 
   useEffect(() => {
     const q = query(collection(db, "feelings"));
@@ -69,11 +83,12 @@ const Humor = () => {
     return () => unsub();
   });
 
-  const handleSubmit = async (e:FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    if (title !== "") {
+    if (title !== "" || range !== undefined) {
       await addDoc(collection(db, "feelings"), {
         title,
+        range,
       });
       setTitle("");
     }
@@ -81,9 +96,10 @@ const Humor = () => {
 
   const handleSubmitVv = async (e) => {
     e.preventDefault();
-    if (otherTitle !== "") {
+    if (otherTitle !== "" || otherRange !== undefined) {
       await addDoc(collection(db, "feelingsVv"), {
         otherTitle,
+        otherRange,
       });
       setOtherTitle("");
     }
@@ -102,74 +118,99 @@ const Humor = () => {
   return (
     <Flex direction="column" h="100vh">
       {user ? (
-      <><Header /><Flex w="100%" my="6" maxWidth={1480} mx="auto" px="6">
-          <SideBar />
-          <SimpleGrid
-            flex="1"
-            gap="4"
-            minChildWidth="320px"
-            alignItems="flex-start"
-          >
-            <Box
-              p={["6", "8"]}
-              bg="gray.900" 
-              borderRadius={8}
-              display="flex"
-              flexDirection="column"
+        <>
+          <Header />
+          <Flex w="100%" my="6" maxWidth={1480} mx="auto" px="6">
+            <SideBar />
+            <SimpleGrid
+              flex="1"
+              gap="4"
+              minChildWidth="320px"
+              alignItems="flex-start"
             >
-              <Flex>
-                <Text fontSize="lg" mb="4" mr="3">
-                  Roney
-                </Text>
-                <Box fontSize="lg" mb="4">
-                  {feeling.map((x) => (
-                    <Flex key={x.id}>
-                      <Text color="purple.600">{x.title}</Text>
-                      <Button
-                        colorScheme={"none"}
-                        p="0"
-                        height="8"
-                        border="none"
-                        position='relative'
-                        pb='4'
-                        onClick={() => handleDelete(x.id)}
-                      >
-                        <RiDeleteBinLine />
-                      </Button>
-                    </Flex>
-                  ))}
-                </Box>
-              </Flex>
-              <Options handleSubmit={handleSubmit} setTitle={setTitle}/>
-            </Box>
-            <Box p={["6", "8"]} bg="gray.900" borderRadius={8}>
-              <Flex>
-                <Text fontSize="lg" mb="4" mr="3">
-                  Vivian
-                </Text>
-                <Box fontSize="lg" mb="4">
-                  {feelingVv.map((x) => (
-                    <Flex key={x.id}>
-                      <Text color="purple.600">{x.otherTitle}</Text>
-                      <Button
-                        colorScheme={"none"}
-                        p="0"
-                        height="8"
-                        border="none"
-                        position='relative'
-                        pb='4'
-                        onClick={() => handleDeleteVv(x.id)}
-                      >
-                        <RiDeleteBinLine />
-                      </Button>
-                    </Flex>
-                  ))}
-                </Box>
-              </Flex>
-              <Options handleSubmit={handleSubmitVv} setTitle={setOtherTitle}/>
-            </Box>
-          </SimpleGrid>
-        </Flex></>
+              <Box
+                p={["6", "8"]}
+                bg="gray.900"
+                borderRadius={8}
+                display="flex"
+                flexDirection="column"
+                height="50vh"
+                width='100%'
+              >
+                <Flex>
+                  <Text fontSize="lg" mb="4" mr="3">
+                    Roney
+                  </Text>
+                  <Box fontSize="lg" mb="4" width='100%'>
+                    {feeling.map((x) => (
+                        <><Flex key={x.id ? x.id : 1}>
+                        <Text color="purple.600">{x.title ? x.title : " "}</Text>
+                        <Button
+                          colorScheme={"none"}
+                          p="0"
+                          height="8"
+                          border="none"
+                          position="relative"
+                          pb="4"
+                          onClick={() => handleDelete(x.id ? x.id : "")}
+                        >
+                          <RiDeleteBinLine />
+                        </Button>
+                      </Flex><Options handleSubmit={handleSubmit} setTitle={setTitle} setRange={setRange} range={x.range ? x.range : range} /></>
+                        ))}
+                        </Box>
+                      </Flex>
+                      {feeling.length == 0 ? (
+                        <Options handleSubmit={handleSubmit} setTitle={setTitle} setRange={setRange} range={range} />
+                      ) : ''}
+                      </Box>
+              <Box p={["6", "8"]}
+                bg="gray.900"
+                borderRadius={8}
+                display="flex"
+                flexDirection="column"
+                height="50vh"
+                width='100%'>
+                <Flex>
+                  <Text fontSize="lg" mb="4" mr="3">
+                    Vivian
+                  </Text>
+                  <Box fontSize="lg" mb="4" width='100%'>
+                    {feelingVv.map((x) => (
+                      <><Flex key={x.id}>
+                        <Text color="purple.600">
+                          {x.otherTitle ? x.otherTitle : ""}
+                        </Text>
+                        <Button
+                          colorScheme={"none"}
+                          p="0"
+                          height="8"
+                          border="none"
+                          position="relative"
+                          pb="4"
+                          onClick={() => handleDeleteVv(x.id)}
+                        >
+                          <RiDeleteBinLine />
+                        </Button>
+                      </Flex><Options
+                          handleSubmit={handleSubmitVv}
+                          setTitle={setOtherTitle}
+                          setRange={setOtherRange}
+                          range={x.otherRange ? x.otherRange : otherRange} /></>
+                    ))}
+                  </Box>
+                </Flex>
+                {feelingVv.length == 0 ? (<Options
+                  handleSubmit={handleSubmitVv}
+                  setTitle={setOtherTitle}
+                  setRange={setOtherRange}
+                  range={otherRange}
+                /> ) : ''}
+                
+              </Box>
+            </SimpleGrid>
+          </Flex>
+        </>
       ) : (
         <TimeOut />
       )}
